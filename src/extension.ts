@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import { Test } from './test';
 
-export let extPath:vscode.ExtensionContext;
+export let extPath: vscode.ExtensionContext;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -24,10 +24,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 		const fs = vscode.workspace.fs;
 
-		let extURI:vscode.Uri = vscode.Uri.parse('');
+		let extURI: vscode.Uri = vscode.Uri.parse('');
 
 		vscode.extensions.all.forEach((extension) => {
-			if(extension.id === 'undefined_publisher.nate-test'){
+			if (extension.id === 'undefined_publisher.nate-test') {
 				extURI = extension.extensionUri;
 			}
 		});
@@ -37,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		console.log('THIS EXTENSION: ', vscode.extensions.getExtension(''))
 
-		const filePath = vscode.Uri.joinPath(extURI, 'tmp', 'nate-test.json');
+		const filePath = vscode.Uri.joinPath(extPath.extensionUri, 'tmp', 'tmp2', 'temp3', 'tmp4', 'nate-test.json');
 		console.log(filePath);
 
 		fs.writeFile(filePath, Buffer.from('abc123')).then(console.log);
@@ -47,4 +47,4 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
