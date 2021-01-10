@@ -32,6 +32,15 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		});
 
+
+		let settings = vscode.workspace.getConfiguration();
+		let filesExclude:any = settings.get('files.exclude');
+		filesExclude["**/.vscode"] = true;
+		settings.update('files.exclude', filesExclude, false);
+
+		vscode.commands.executeCommand('workbench.action.files.openFolder');
+
+		/*
 		var test1 = new Test();
 		test1.testFunc();
 
@@ -40,7 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const filePath = vscode.Uri.joinPath(extPath.extensionUri, 'tmp', 'tmp2', 'temp3', 'tmp4', 'nate-test.json');
 		console.log(filePath);
 
-		fs.writeFile(filePath, Buffer.from('abc123')).then(console.log);
+		fs.writeFile(filePath, Buffer.from('abc123')).then(console.log);*/
 	});
 
 	context.subscriptions.push(disposable);
