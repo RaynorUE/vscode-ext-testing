@@ -22,23 +22,37 @@ export function activate(context: vscode.ExtensionContext) {
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from nate-test!');
 
-		const fs = vscode.workspace.fs;
-
-		let extURI: vscode.Uri = vscode.Uri.parse('');
-
-		vscode.extensions.all.forEach((extension) => {
-			if (extension.id === 'undefined_publisher.nate-test') {
-				extURI = extension.extensionUri;
-			}
-		});
+		let qpitems: vscode.QuickPickItem[] = [
+			{ label: "test1", description: "I am description 1", detail: "I am detail 1", picked: false },
+			{ label: "test2", description: "I am description 2", detail: "I am detail 2", picked: true },
+			{ label: "test3", description: "I am description 3", detail: "I am detail 3", picked: true }
+		];
 
 
-		let settings = vscode.workspace.getConfiguration();
-		let filesExclude:any = settings.get('files.exclude');
-		filesExclude["**/.vscode"] = true;
-		settings.update('files.exclude', filesExclude, false);
+		/** VEDRICT: This seems to be super edge case where you need to disable input, and/or add custom buttons.. we can always show progress with a showInfoMessage */
+		let qpi = vscode.window.createQuickPick();
 
-		vscode.commands.executeCommand('workbench.action.files.openFolder');
+		qpi.title = "Select some stuff!";
+		qpi.step = 1;
+		qpi.totalSteps = 5;
+		qpi.canSelectMany = true;
+		qpi.busy = true;
+		qpi.enabled = false;
+		qpi.ignoreFocusOut = true;
+		qpi.show();
+		setTimeout(() => {
+			qpi.items = qpitems;
+			qpi.busy = false;
+			qpi.enabled = true;
+		}, 5000);
+
+		qpi.onDidAccept(())
+
+		//qpi.show();
+
+
+
+		//vscode.commands.executeCommand('workbench.action.files.openFolder');
 
 		/*
 		var test1 = new Test();
