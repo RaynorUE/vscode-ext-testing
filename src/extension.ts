@@ -22,33 +22,16 @@ export function activate(context: vscode.ExtensionContext) {
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from nate-test!');
 
-		let qpitems: vscode.QuickPickItem[] = [
-			{ label: "test1", description: "I am description 1", detail: "I am detail 1", picked: false },
-			{ label: "test2", description: "I am description 2", detail: "I am detail 2", picked: true },
-			{ label: "test3", description: "I am description 3", detail: "I am detail 3", picked: true }
-		];
+		let sbItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 10);
+		sbItem.text = `$(file-binary) Application: Mobility Management Platform`;
+		sbItem.command = 'snich.test';
+		sbItem.tooltip = "The currently selected app scope for your account on the current active editors instance.";
+		sbItem.show();
 
-
-		/** VEDRICT: This seems to be super edge case where you need to disable input, and/or add custom buttons.. we can always show progress with a showInfoMessage */
-		let qpi = vscode.window.createQuickPick();
-
-		qpi.title = "Select some stuff!";
-		qpi.step = 1;
-		qpi.totalSteps = 5;
-		qpi.canSelectMany = true;
-		qpi.busy = true;
-		qpi.enabled = false;
-		qpi.ignoreFocusOut = true;
-		qpi.show();
-		setTimeout(() => {
-			qpi.items = qpitems;
-			qpi.busy = false;
-			qpi.enabled = true;
-		}, 5000);
-
-		qpi.onDidAccept(())
-
-		//qpi.show();
+		let uSetSB = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 5);
+		uSetSB.text = `$(source-control-view-icon) Update Set: STRY##### - I am about to be 70 characters long to see how this looks.`
+		uSetSB.tooltip = "The currently selected update set for the instance of the active editor.";
+		uSetSB.show();
 
 
 
