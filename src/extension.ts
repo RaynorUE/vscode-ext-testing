@@ -3,6 +3,8 @@
 import * as vscode from 'vscode';
 import { Test } from './test';
 
+import * as rp from 'request-promise-native';
+
 export let extPath: vscode.ExtensionContext;
 
 // this method is called when your extension is activated
@@ -16,11 +18,25 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('nate-test.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('nate-test.helloWorld', async () => {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from nate-test!');
+
+		let defRp = rp.defaults({ baseUrl: 'https://sndevlatest.integratenate.com' });
+
+		//defRp.defaults({});
+
+		let results;
+		try{
+		results = await defRp.get('/api/now/table/incident', { qs: { sysparm_limit: 1 } });
+		} catch(e){
+			 results = JSON.stringify(e);
+		}
+		console.log(results);
+
+		/*
 
 		let sbItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 10);
 		sbItem.text = `$(file-binary) Application: Mobility Management Platform`;
@@ -32,6 +48,7 @@ export function activate(context: vscode.ExtensionContext) {
 		uSetSB.text = `$(source-control-view-icon) Update Set: STRY##### - I am about to be 70 characters long to see how this looks.`
 		uSetSB.tooltip = "The currently selected update set for the instance of the active editor.";
 		uSetSB.show();
+		*/
 
 
 
