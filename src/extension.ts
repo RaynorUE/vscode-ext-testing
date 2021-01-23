@@ -24,7 +24,8 @@ export function activate(context: vscode.ExtensionContext) {
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from nate-test!');
 
-		let defRp = rp.defaults({ baseUrl: 'https://sndevlatest.integratenate.com' });
+		/*
+		let defRp = rp.defaults({ baseUrl: 'https://sndevlatest.integratenate.com', gzip:true, json:true});
 
 		//defRp.defaults({});
 
@@ -35,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
 			 results = JSON.stringify(e);
 		}
 		console.log(results);
-
+		*/
 		/*
 
 		let sbItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 10);
@@ -54,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		//vscode.commands.executeCommand('workbench.action.files.openFolder');
 
-		/*
+		let fs = vscode.workspace.fs;
 		var test1 = new Test();
 		test1.testFunc();
 
@@ -63,7 +64,11 @@ export function activate(context: vscode.ExtensionContext) {
 		const filePath = vscode.Uri.joinPath(extPath.extensionUri, 'tmp', 'tmp2', 'temp3', 'tmp4', 'nate-test.json');
 		console.log(filePath);
 
-		fs.writeFile(filePath, Buffer.from('abc123')).then(console.log);*/
+		let path2 = vscode.Uri.parse(filePath.path);
+
+		console.log(path2);
+
+		fs.writeFile(filePath, Buffer.from('abc123')).then(console.log);
 	});
 
 	context.subscriptions.push(disposable);
