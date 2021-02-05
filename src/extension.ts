@@ -2,8 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { Test } from './test';
-
-import * as rp from 'request-promise-native';
+import { SNICHCrypto } from './SNICHCrypto';
 
 export let extPath: vscode.ExtensionContext;
 
@@ -23,6 +22,15 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from nate-test!');
+		console.log('about to init SNICHCrypto');
+		let crypt = new SNICHCrypto();
+
+		console.log('about to encrypt');
+		let encrypted = crypt.encrypt('hello world');
+
+		console.log('about to decrypt!', encrypted);
+		let decrypted = crypt.decrypt(encrypted.value, encrypted.iv);
+		console.log(decrypted);
 
 		/*
 		let defRp = rp.defaults({ baseUrl: 'https://sndevlatest.integratenate.com', gzip:true, json:true});

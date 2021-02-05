@@ -45,6 +45,7 @@
 	},
 	"dependencies": {
 		"@types/request-promise-native": "^1.0.17",
+		"node-machine-id": "^1.1.12",
 		"request": "^2.88.2",
 		"request-promise-native": "^1.0.9"
 	}
