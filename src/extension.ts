@@ -3,24 +3,14 @@
 import { getServers } from 'dns';
 import * as vscode from 'vscode';
 import { Test } from './test';
-<<<<<<< HEAD
 import * as rp from 'request-promise-native';
-=======
 import { SNICHCrypto } from './SNICHCrypto';
-import AsyncNedb from 'nedb-async';
-
->>>>>>> main
 
 export let extPath: vscode.ExtensionContext;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
-
-	var db = new AsyncNedb();
-	await db.asyncLoadDatabase();
-	var result = await db.asyncUpdate({ _id: 'abc123' }, { _id: undefined, name: "test123" });
-	console.log(result);
 
 	extPath = context;
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
@@ -35,16 +25,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
 
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from nate-test!');
-<<<<<<< HEAD
-		let result: rp.FullResponse;
-		try {
-			result = await myTest();
-		} catch (e) {
-			result = e;
-		}
-=======
 		console.log('about to init SNICHCrypto');
 		let crypt = new SNICHCrypto();
 
@@ -69,7 +49,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		console.log(results);
 		*/
 		/*
->>>>>>> main
+
 
 		async function myTest() {
 			let result;
@@ -78,16 +58,6 @@ export async function activate(context: vscode.ExtensionContext) {
 			} catch (e) {
 				throw e;
 			}
-
-<<<<<<< HEAD
-			let result2 = await rp.get('https://integratenate.com');
-=======
-		let uSetSB = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 5);
-		uSetSB.text = `$(source-control-view-icon) Update Set: STRY##### - I am about to be 70 characters long to see how this looks.`
-		uSetSB.tooltip = "The currently selected update set for the instance of the active editor.";
-		uSetSB.show();
-		*/
->>>>>>> main
 
 			return result2;
 
