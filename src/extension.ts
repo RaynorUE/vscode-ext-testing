@@ -1,7 +1,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+import { getServers } from 'dns';
 import * as vscode from 'vscode';
 import { Test } from './test';
+import * as rp from 'request-promise-native';
 
 export let extPath: vscode.ExtensionContext;
 
@@ -16,23 +18,44 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('nate-test.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('nate-test.helloWorld', async () => {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from nate-test!');
+		let result: rp.FullResponse;
+		try {
+			result = await myTest();
+		} catch (e) {
+			result = e;
+		}
 
-		let sbItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 10);
-		sbItem.text = `$(file-binary) Application: Mobility Management Platform`;
-		sbItem.command = 'snich.test';
-		sbItem.tooltip = "The currently selected app scope for your account on the current active editors instance.";
-		sbItem.show();
+		async function myTest() {
+			let result;
+			try {
+				result = await rp.get('https://www.google.com');
+			} catch (e) {
+				throw e;
+			}
 
-		let uSetSB = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 5);
-		uSetSB.text = `$(source-control-view-icon) Update Set: STRY##### - I am about to be 70 characters long to see how this looks.`
-		uSetSB.tooltip = "The currently selected update set for the instance of the active editor.";
-		uSetSB.show();
+			let result2 = await rp.get('https://integratenate.com');
 
+			return result2;
+
+
+		}
+
+
+		console.log(JSON.stringify(result.body));
+
+		/*
+		var test = vscode.Uri.joinPath(context.extensionUri, 'abc123', 'test123');
+		var testStr = test.toJSON();
+		console.log(`testStr`, testStr);
+		var testObj: vscode.Uri = JSON.parse(JSON.stringify(testStr));
+		console.log(`testObj`, testObj);
+		var test2 = vscode.Uri.parse(`${testObj.scheme}://${testObj.path}`);
+		*/
 
 
 		//vscode.commands.executeCommand('workbench.action.files.openFolder');
