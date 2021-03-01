@@ -6,6 +6,8 @@ import { Test } from './test';
 import * as rp from 'request-promise-native';
 import { SNICHCrypto } from './SNICHCrypto';
 
+import { ClassB } from './classB';
+
 export let extPath: vscode.ExtensionContext;
 
 // this method is called when your extension is activated
@@ -23,6 +25,9 @@ export async function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('nate-test.helloWorld', async () => {
 		// The code you place here will be executed every time your command is executed
 
+
+		console.log('ClassB.test()', new ClassB('test').test());
+		console.log('ClassB.test2()', new ClassB('test2').test2());
 
 
 		console.log('about to init SNICHCrypto');
