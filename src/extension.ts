@@ -5,6 +5,7 @@ import * as vscode from 'vscode';
 import { Test } from './test';
 import * as rp from 'request-promise-native';
 import { SNICHCrypto } from './SNICHCrypto';
+import { sep as pathSep } from 'path';
 
 import { ClassB } from './classB';
 
@@ -25,6 +26,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('nate-test.helloWorld', async () => {
 		// The code you place here will be executed every time your command is executed
 
+		/*
 
 		console.log('ClassB.test()', new ClassB('test').test());
 		console.log('ClassB.test2()', new ClassB('test2').test2());
@@ -39,6 +41,32 @@ export async function activate(context: vscode.ExtensionContext) {
 		console.log('about to decrypt!', encrypted);
 		let decrypted = crypt.decrypt(encrypted.value, encrypted.iv);
 		console.log(decrypted);
+*/
+
+
+		if (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
+			let wsRoot = vscode.workspace.workspaceFolders[0].uri;
+			console.log('wsRoot URI: ', wsRoot);
+			let wsRootStr = wsRoot.toString(true);
+			console.log('wsRootStr: ', wsRootStr);
+
+			var test = vscode.Uri.joinPath(wsRoot, 'abc123', 'test123');
+			console.log('vscode uri join path: ', test);
+			var testStr = test.toString(true);
+			console.log(`testStr`, testStr);
+
+			var strippedTest = testStr.replace(wsRootStr, '');
+			console.log('strippedTest: ', strippedTest);
+			console.log('pathSep:', pathSep);
+			var strippedTestPathParts = strippedTest.split('/');
+			console.log("strippedTestPathParts: ", strippedTestPathParts);
+
+			console.log(vscode.Uri.joinPath(wsRoot, ...strippedTestPathParts));
+		}
+
+
+
+
 
 		/*
 		let defRp = rp.defaults({ baseUrl: 'https://sndevlatest.integratenate.com', gzip:true, json:true});
@@ -72,14 +100,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
 		console.log(JSON.stringify(result.body));
 
-		/*
-		var test = vscode.Uri.joinPath(context.extensionUri, 'abc123', 'test123');
-		var testStr = test.toJSON();
-		console.log(`testStr`, testStr);
-		var testObj: vscode.Uri = JSON.parse(JSON.stringify(testStr));
-		console.log(`testObj`, testObj);
-		var test2 = vscode.Uri.parse(`${testObj.scheme}://${testObj.path}`);
-		*/
+		
+
 
 
 		//vscode.commands.executeCommand('workbench.action.files.openFolder');
@@ -98,7 +120,9 @@ export async function activate(context: vscode.ExtensionContext) {
 		console.log(path2);
 
 		fs.writeFile(filePath, Buffer.from('abc123')).then(console.log);
+		*/
 	});
+
 
 	context.subscriptions.push(disposable);
 }
